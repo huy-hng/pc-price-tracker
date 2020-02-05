@@ -9,31 +9,37 @@
     "Tower": "https://www.mindfactory.de/product_info.php/be-quiet--Pure-Base-600-gedaemmt-Midi-Tower-ohne-Netzteil-schwarz_1137067.html"
   },
 
-  "single_products": {
-    "CPU": 110,
-    "Mainboard": 70,
-    "CPU cooler": 40,
-    "SSD": 110,
-    "Tower": 65,
-    "Power supply": 50,
-    "GPU": 160
-  },
+  "single_products": [
+    { "name": "CPU", "threshold": 105 },
+    { "name": "Mainboard", "threshold": 68 },
+    { "name": "CPU cooler", "threshold": 39 },
+    { "name": "SSD", "threshold": 107 },
+    { "name": "Tower", "threshold": 61 },
+    { "name": "Power supply", "threshold": 47 },
+    { "name": "GPU", "threshold": 147 }
+  ],
 
   "groups": [
     {
       "name": "CPU and Mainboard",
-      "products": [ "CPU", "Mainboard" ],
-      "threshold": 200
+      "products": [ "CPU", "Mainboard" ]
     },
     {
-      "name": "Speed: SSD, CPU and Mainboard",
-      "products": [ "SSD", "CPU", "Mainboard" ],
-      "threshold": 200
+      "name": "SSD, Tower and Cooler",
+      "products": [ "SSD", "Tower", "CPU cooler" ]
     },
     {
       "name": "GPU and Powersupply",
-      "products": [ "GPU", "Power supply" ],
-      "threshold": 200
+      "products": [ "GPU", "Power supply" ]
+    },
+
+    {
+      "name": "CPU, Mainboard and SSD",
+      "products": [ "SSD", "CPU", "Mainboard" ]
+    },
+    {
+      "name": "GPU, Powersupply, Tower and Cooler",
+      "products": [ "GPU", "Power supply", "Tower", "CPU cooler" ]
     }
   ]
 }
