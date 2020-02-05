@@ -91,15 +91,15 @@ def periodic_checker():
         send_notification(name, group['price'], group['threshold'])
         pass
   
-    time.sleep(600)
-
-    settings = get_json('settings')
-    if not settings['notifications']:
-      break
+    sleep_start = time.time()
+    while time.time() - sleep_start < 600:
+      time.sleep(10)
+      settings = get_json('settings')
+      if not settings['notifications']:
+        return
 
     print('periodic_checker running')
 
-  return render_template('settings.html', state=settings['notifications'])
 #endregion
 
 
