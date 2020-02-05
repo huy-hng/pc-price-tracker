@@ -169,9 +169,9 @@ def get_json(name):
   with open(f'{name}.json') as f:
     return json.load(f)
 
-def set_settings(name, obj):
+def set_settings(name, dictionary):
   with open(f'{name}.json', 'w') as f:
-    f.write(json.dumps(obj))
+    f.write(json.dumps(dictionary))
 #endregion
 
 if __name__ == '__main__':
