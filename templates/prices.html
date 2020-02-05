@@ -21,12 +21,13 @@
             <td>{{ product['threshold'] }}</td>
           </tr>
           {% endfor %}
+          <tr>
+            <th scope="row">Total</th>
+            <td>{{ prices_total['price'] }}</td>
+            <td>{{ prices_total['threshold'] }}</td>
+          </tr>
         </tbody>
       </table>
-
-      <hr>
-
-      <div class="card-content">Total: {{ prices_total }}</div>
     </div>
   </div>
   
