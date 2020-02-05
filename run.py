@@ -1,5 +1,6 @@
 import requests
 import headless_driver
+import time
 
 xpath = '//*[@id="priceCol"]/span/span[3]'
 
@@ -56,4 +57,6 @@ def get_group_price():
 
 
 if __name__ == '__main__':
-  get_group_price()
+  while True:
+    get_group_price()
+    time.sleep(600)
