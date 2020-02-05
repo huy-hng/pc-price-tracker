@@ -10,7 +10,7 @@
   },
 
   "single_products": [
-    { "name": "CPU", "threshold": 105 },
+    { "name": "CPU", "threshold": 200 },
     { "name": "Mainboard", "threshold": 68 },
     { "name": "CPU cooler", "threshold": 39 },
     { "name": "SSD", "threshold": 107 },
