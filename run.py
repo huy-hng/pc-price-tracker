@@ -59,4 +59,4 @@ def get_group_price():
 if __name__ == '__main__':
   while True:
     get_group_price()
-    time.sleep(600)
+    time.sleep(60)
