@@ -15,13 +15,13 @@
         <tbody>
 
           {% for name, product in prices.items() %}
-          <tr>
+          <tr class="table-{% if product['price'] < product['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">{{ name }}</th>
             <td>{{ product['price'] }}</td>
             <td>{{ product['threshold'] }}</td>
           </tr>
           {% endfor %}
-          <tr>
+          <tr class="table-{% if prices_total['price'] < prices_total['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">Total</th>
             <td>{{ prices_total['price'] }}</td>
             <td>{{ prices_total['threshold'] }}</td>
@@ -48,7 +48,7 @@
         <tbody>
 
           {% for name, group in group_prices.items() %}
-          <tr>
+          <tr class="table-{% if group['price'] < group['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">{{ name }}</th>
             <td>{{ group['price'] }}</td>
             <td>{{ group['threshold'] }}</td>
