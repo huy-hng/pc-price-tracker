@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <H3>All Products</H3>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for name, product in prices.items() %}
+          <tr>
+            <th scope="row">{{ name }}</th>
+            <td>{{ product['price'] }}</td>
+            <td>{{ product['threshold'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <hr>
+
+      <div class="card-content">Total: {{ prices_total }}</div>
+    </div>
+  </div>
+  
+  <br />
+  
+  <div class="card">
+    <div class="card-body">
+      <H3>Groups</H3>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for name, group in group_prices.items() %}
+          <tr>
+            <th scope="row">{{ name }}</th>
+            <td>{{ group['price'] }}</td>
+            <td>{{ group['threshold'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock content %}

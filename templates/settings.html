@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h4>Notifications: {{ state }}</h4>
+      <a href="/toggle_notifications" class="btn btn-dark" role="button" aria-pressed="true">Toggle</a>
+
+    </div>
+  </div>
+{% endblock content %}
