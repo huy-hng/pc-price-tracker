@@ -114,7 +114,6 @@ def periodic_checker():
     for name, group in group_prices.items():
       if group['price'] < group['threshold']:
         send_notification(name, group['price'], group['threshold'])
-        pass
   
     time.sleep(600)
   periodic_checker_running = False
