@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "C:\\Users\\Huy\\.virtualenvs\\price_getter-jyOJGaVh\\Scripts\\python.exe",
+  "python.pythonPath": "C:\\Users\\Huy\\.virtualenvs\\price_getter-PrGzXVEV\\Scripts\\python.exe",
   "azureFunctions.deploySubpath": ".",
   "azureFunctions.scmDoBuildDuringDeployment": true,
   "azureFunctions.projectLanguage": "Python",
