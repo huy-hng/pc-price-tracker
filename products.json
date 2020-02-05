@@ -22,24 +22,29 @@
   "groups": [
     {
       "name": "CPU and Mainboard",
-      "products": [ "CPU", "Mainboard" ]
+      "products": [ "CPU", "Mainboard" ],
+      "last_notification": 0
     },
     {
       "name": "SSD, Tower and Cooler",
-      "products": [ "SSD", "Tower", "CPU cooler" ]
+      "products": [ "SSD", "Tower", "CPU cooler" ],
+      "last_notification": 0
     },
     {
       "name": "GPU and Powersupply",
-      "products": [ "GPU", "Power supply" ]
+      "products": [ "GPU", "Power supply" ],
+      "last_notification": 0
     },
 
     {
       "name": "CPU, Mainboard and SSD",
-      "products": [ "SSD", "CPU", "Mainboard" ]
+      "products": [ "SSD", "CPU", "Mainboard" ],
+      "last_notification": 0
     },
     {
       "name": "GPU, Powersupply, Tower and Cooler",
-      "products": [ "GPU", "Power supply", "Tower", "CPU cooler" ]
+      "products": [ "GPU", "Power supply", "Tower", "CPU cooler" ],
+      "last_notification": 0
     }
   ]
 }

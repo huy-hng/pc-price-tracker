@@ -48,9 +48,11 @@
         <tbody>
 
           {% for name, group in group_prices.items() %}
-          <tr class="table-{% if group['price'] < group['threshold'] %}success{% else %}default{% endif %}">
+          <tr>
             <th scope="row">{{ name }}</th>
-            <td>{{ group['price'] }}</td>
+            <td class="table-{% if group['price'] < group['threshold'] %}success{% else %}default{% endif %}">
+              {{ group['price'] }}
+            </td>
             <td>{{ group['threshold'] }}</td>
           </tr>
           {% endfor %}
