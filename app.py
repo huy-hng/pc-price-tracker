@@ -139,7 +139,7 @@ def periodic_checker():
     get_all_prices()
     get_group_price()
   
-    time.sleep(10)
+    time.sleep(600)
 
   periodic_checker_running = False
 
