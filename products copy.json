@@ -8,71 +8,52 @@
     "CPU cooler": "https://www.mindfactory.de/product_info.php/EKL-Alpenfoehn-Brocken-3-Tower-Kuehler_1188580.html",
     "Tower": "https://www.mindfactory.de/product_info.php/be-quiet--Pure-Base-600-gedaemmt-Midi-Tower-ohne-Netzteil-schwarz_1137067.html"
   },
+
   "single_products": [
-    { "name": "CPU", "threshold": 105, "lowest": 116.9, "price": 116.9, "last_lowest": 116.9 },
-    { "name": "Mainboard", "threshold": 68, "lowest": 74.9, "price": 74.9, "last_lowest": 74.9 },
-    { "name": "SSD", "threshold": 107, "lowest": 118.9, "price": 118.9, "last_lowest": 118.9 },
-    { "name": "GPU", "threshold": 147, "lowest": 164.4, "price": 164.4, "last_lowest": 164.4 },
-    { "name": "Power supply", "threshold": 47, "lowest": 52.44, "price": 52.44, "last_lowest": 52.44 },
-    { "name": "Tower", "threshold": 61, "lowest": 68.7, "price": 68.7, "last_lowest": 68.7 },
-    { "name": "CPU cooler", "threshold": 39, "lowest": 42.85, "price": 42.85, "last_lowest": 42.85 }
+    { "name": "CPU", "threshold": 105, "lowest": 9999 },
+    { "name": "Mainboard", "threshold": 68, "lowest": 9999 },
+    { "name": "SSD", "threshold": 107, "lowest": 9999 },
+    { "name": "GPU", "threshold": 147, "lowest": 9999 },
+    { "name": "Power supply", "threshold": 47, "lowest": 9999 },
+    { "name": "Tower", "threshold": 61, "lowest": 9999 },
+    { "name": "CPU cooler", "threshold": 39, "lowest": 9999 }
   ],
+
   "groups": [
     {
       "name": "CPU and Mainboard",
       "products": [ "CPU", "Mainboard" ],
-      "last_notification": 0,
-      "price": 187.19,
-      "threshold": 173,
-      "lowest": 187.19
+      "last_notification": 0
     },
     {
       "name": "SSD, Tower",
       "products": [ "SSD", "Tower" ],
-      "last_notification": 0,
-      "price": 187.6,
-      "threshold": 168,
-      "lowest": 187.6
+      "last_notification": 0
     },
     {
       "name": "GPU and Powersupply",
       "products": [ "GPU", "Power supply" ],
-      "last_notification": 0,
-      "price": 216.84,
-      "threshold": 194,
-      "lowest": 216.84
+      "last_notification": 0
     },
     {
       "name": "SSD, Tower and Cooler",
       "products": [ "SSD", "Tower", "CPU cooler" ],
-      "last_notification": 0,
-      "price": 230.45,
-      "threshold": 207,
-      "lowest": 230.45
+      "last_notification": 0
     },
     {
       "name": "CPU, Mainboard and SSD",
       "products": [ "SSD", "CPU", "Mainboard" ],
-      "last_notification": 0,
-      "price": 306.09,
-      "threshold": 280,
-      "lowest": 306.09
+      "last_notification": 0
     },
     {
       "name": "GPU, Powersupply, Tower",
       "products": [ "GPU", "Power supply", "Tower" ],
-      "last_notification": 0,
-      "price": 285.54,
-      "threshold": 255,
-      "lowest": 285.54
+      "last_notification": 0
     },
     {
       "name": "GPU, Powersupply, Tower and Cooler",
       "products": [ "GPU", "Power supply", "Tower", "CPU cooler" ],
-      "last_notification": 0,
-      "price": 328.39,
-      "threshold": 294,
-      "lowest": 328.39
+      "last_notification": 0
     }
   ]
 }

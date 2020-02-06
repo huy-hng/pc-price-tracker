@@ -9,22 +9,22 @@
     "Tower": "https://www.mindfactory.de/product_info.php/be-quiet--Pure-Base-600-gedaemmt-Midi-Tower-ohne-Netzteil-schwarz_1137067.html"
   },
   "single_products": [
-    { "name": "CPU", "threshold": 105, "lowest": 116.9, "price": 116.9, "last_lowest": 116.9 },
-    { "name": "Mainboard", "threshold": 68, "lowest": 74.9, "price": 74.9, "last_lowest": 74.9 },
-    { "name": "SSD", "threshold": 107, "lowest": 118.9, "price": 118.9, "last_lowest": 118.9 },
-    { "name": "GPU", "threshold": 147, "lowest": 164.4, "price": 164.4, "last_lowest": 164.4 },
-    { "name": "Power supply", "threshold": 47, "lowest": 52.44, "price": 52.44, "last_lowest": 52.44 },
-    { "name": "Tower", "threshold": 61, "lowest": 68.7, "price": 68.7, "last_lowest": 68.7 },
-    { "name": "CPU cooler", "threshold": 39, "lowest": 42.85, "price": 42.85, "last_lowest": 42.85 }
+    { "name": "CPU", "threshold": 105, "lowest": 116.9, "price": 116.9 },
+    { "name": "Mainboard", "threshold": 68, "lowest": 74.9, "price": 74.9 },
+    { "name": "SSD", "threshold": 107, "lowest": 118.9, "price": 118.9 },
+    { "name": "GPU", "threshold": 147, "lowest": 164.4, "price": 164.4 },
+    { "name": "Power supply", "threshold": 47, "lowest": 52.44, "price": 52.44 },
+    { "name": "Tower", "threshold": 61, "lowest": 68.7, "price": 68.7 },
+    { "name": "CPU cooler", "threshold": 39, "lowest": 42.85, "price": 42.85 }
   ],
   "groups": [
     {
       "name": "CPU and Mainboard",
       "products": [ "CPU", "Mainboard" ],
       "last_notification": 0,
-      "price": 187.19,
+      "price": 191.8,
       "threshold": 173,
-      "lowest": 187.19
+      "lowest": 191.8
     },
     {
       "name": "SSD, Tower",
@@ -54,9 +54,9 @@
       "name": "CPU, Mainboard and SSD",
       "products": [ "SSD", "CPU", "Mainboard" ],
       "last_notification": 0,
-      "price": 306.09,
+      "price": 310.7,
       "threshold": 280,
-      "lowest": 306.09
+      "lowest": 310.7
     },
     {
       "name": "GPU, Powersupply, Tower",

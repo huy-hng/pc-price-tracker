@@ -11,30 +11,34 @@ import headless_driver
 
 
 app = Flask(__name__)
-periodic_checker_running = False
 
 @app.route('/')
 def home():
-  if not periodic_checker_running:
-    start_periodic_checker()
   return render_template('layout.html')
+
+@app.route('/products_json')
+def get_products_json():
+  with open(f'products.json') as f:
+    return f.read()
+
 
 #region ################ prices ################
 @app.route('/prices')
 def prices():
   prices, total = get_all_prices()
-  group_prices = get_group_price(prices)
-  return render_template('prices.html',
-                          prices=prices,
-                          prices_total=total,
-                          group_prices=group_prices)
+  groups = get_group_price()
+  pretty_prices = prettify_prices(prices)
+  pretty_groups = prettify_prices(groups)
+
+  return render_template('prices.html', prices=pretty_prices, 
+      prices_total=total, groups=pretty_groups)
 
 
 def get_price(link):
   text = headless_driver.get(link)
   elem = headless_driver.get_element(text, '//*[@id="priceCol"]/span/span[3]')
   num = headless_driver.get_attribute(elem, 'content')
-  return prettify_price(num)
+  return round(float(num), 2)
 
 
 def get_all_prices():
@@ -42,59 +46,80 @@ def get_all_prices():
   prices = {
     CPU: {
       price: 100,
-      threshold: 90
+      threshold: 90,
+      lowest: 99
     },
     ...
   }
   """
   products = get_json('products')
-  links = products['links']
-  single_products = products['single_products']
 
-  prices = {}
   total_price = 0
   total_threshold = 0
+  total_lowest = 0
 
-  for product in single_products:
-    link = links[product['name']]
+  for product in products['single_products']:
+    link = products['links'][product['name']]
     name = product['name']
 
     price = get_price(link)
-    product_detail = {}
-    product_detail['price'] = price
-    product_detail['threshold'] = prettify_price(product['threshold'])
-    prices[name] = product_detail
+    # if name == 'CPU': price = round(product['lowest'] * 0.99, 2)
+    if price < product['lowest']:
+      product['last_lowest'] = product['lowest']
+      product['lowest'] = price
 
+    product['price'] = price
 
-    total_price += float(price[:-1])
+    total_price += price
     total_threshold += product['threshold']
+    total_lowest += product['lowest']
+
+  set_json('products', products)
 
   total = {
     'price': prettify_price(total_price),
-    'threshold': prettify_price(total_threshold)
+    'threshold': prettify_price(total_threshold),
+    'lowest': prettify_price(total_lowest)
   }
 
-  return prices, total
+  return products['single_products'], total
 
 
-def get_group_price(prices):
-  group_prices = {}
+def get_group_price():
   products = get_json('products')
   groups = products['groups']
+  single_products = products['single_products']
   for group in groups:
-    price = 0
+    group_price = 0
     threshold = 0
+    last_lowest = 0
+    lowest = 0
 
     for product in group['products']:
-      price += float(prices[product]['price'][:-1])
-      threshold += float(prices[product]['threshold'][:-1])
 
-    group_detail = {}
-    group_detail['price'] = prettify_price(round(price, 2))
-    group_detail['threshold'] = prettify_price(int(round(threshold)))
+      single_product = None
+      for prod in single_products:
+        if prod['name'] == product:
+          single_product = prod
 
-    group_prices[group['name']] = group_detail
-  return group_prices
+      group_price += single_product['price']
+      threshold += single_product['threshold']
+      lowest += single_product['lowest']
+      last_lowest += single_product['last_lowest']
+
+    if group_price < last_lowest:
+      send_notification('price_drop', group['name'], prettify_price(last_lowest), prettify_price(group_price))
+
+    if group_price < threshold:
+      send_notification('price_alert', group['name'], prettify_price(group['price']), prettify_price(group['threshold']))
+
+    group['price'] = round(group_price, 2)
+    group['threshold'] = round(threshold, 2)
+    group['lowest'] = round(lowest, 2)
+
+  set_json('products', products)
+
+  return groups
 #endregion
 
 
@@ -105,18 +130,24 @@ def start_periodic_checker():
   thread.start()
 
 def periodic_checker():
+  global periodic_checker_running
+  if periodic_checker_running: return
+
   periodic_checker_running = True
   while get_json('settings')['notifications']:
 
-    prices, total = get_all_prices()
-    group_prices = get_group_price(prices)
-
-    for name, group in group_prices.items():
-      if group['price'] < group['threshold']:
-        send_notification(name, group['price'], group['threshold'])
+    get_all_prices()
+    get_group_price()
   
-    time.sleep(600)
+    time.sleep(10)
+
   periodic_checker_running = False
+
+
+def send_notification(endpoint, val1, val2, val3):
+  print(endpoint, val1, val2, val3)
+  requests.post(f'https://maker.ifttt.com/trigger/{endpoint}/with/key/QqsEN4DAuAPNDhPwNgVbG',
+      {'value1': val1, 'value2': val2, 'value3': val3})
 #endregion
 
 
@@ -130,7 +161,7 @@ def notify():
 def toggle_notifications():
   settings = get_json('settings')
   settings['notifications'] = not settings['notifications']
-  set_settings('settings', settings)
+  set_json('settings', settings)
   print('Notifications:', settings['notifications'])
 
   if settings['notifications'] and not periodic_checker_running:
@@ -141,7 +172,8 @@ def toggle_notifications():
 
 
 #region ################ helper ################
-def prettify_price(price):
+def prettify_price(price: float):
+  price = round(price, 2)
   price = str(price).split('.')
   if len(price) > 1:
     price = f'{price[0]}.{price[1].ljust(2, "0")}€'
@@ -150,29 +182,28 @@ def prettify_price(price):
     
   return price
 
+def prettify_prices(price_list):
+  for item in price_list:
+    item['threshold'] = prettify_price(item['threshold'])
+    item['lowest'] = prettify_price(item['lowest'])
+    item['price'] = prettify_price(item['price'])
 
-def prettify_prices(prices):
-  for name, price in prices.items():
-    price = prettify_price(price)
-    prices[name] = price
-  return prices
-
-
-def send_notification(name, price, threshold):
-  requests.post('https://maker.ifttt.com/trigger/price_alert/with/key/QqsEN4DAuAPNDhPwNgVbG',
-      {'value1': name, 'value2': price, 'value3': threshold})
+  return price_list
 #endregion
 
 
 #region ################ json ################
-def get_json(name):
+def get_json(name) -> dict:
   with open(f'{name}.json') as f:
     return json.load(f)
 
-def set_settings(name, dictionary):
+def set_json(name, dictionary):
   with open(f'{name}.json', 'w') as f:
     f.write(json.dumps(dictionary))
 #endregion
 
 if __name__ == '__main__':
+  periodic_checker_running = False
+  if not periodic_checker_running:
+    start_periodic_checker()
   app.run(debug=True, port=80)
