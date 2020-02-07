@@ -65,7 +65,6 @@ def get_all_prices():
     price = get_price(link)
     # if name == 'CPU': price = round(product['lowest'] * 0.99, 2)
     if price < product['lowest']:
-      product['last_lowest'] = product['lowest']
       product['lowest'] = price
 
     product['price'] = price
@@ -92,7 +91,6 @@ def get_group_price():
   for group in groups:
     group_price = 0
     threshold = 0
-    last_lowest = 0
     lowest = 0
 
     for product in group['products']:
@@ -105,10 +103,9 @@ def get_group_price():
       group_price += single_product['price']
       threshold += single_product['threshold']
       lowest += single_product['lowest']
-      last_lowest += single_product['last_lowest']
 
-    if group_price < last_lowest:
-      send_notification('price_drop', group['name'], prettify_price(last_lowest), prettify_price(group_price))
+    if group_price < group['lowest']:
+      send_notification('price_drop', group['name'], prettify_price(group['lowest']), prettify_price(group_price))
 
     if group_price < threshold:
       send_notification('price_alert', group['name'], prettify_price(group['price']), prettify_price(group['threshold']))
@@ -138,16 +135,16 @@ def periodic_checker():
 
     get_all_prices()
     get_group_price()
-  
+    print('assssd')
     time.sleep(600)
 
   periodic_checker_running = False
 
 
 def send_notification(endpoint, val1, val2, val3):
-  print(endpoint, val1, val2, val3)
   requests.post(f'https://maker.ifttt.com/trigger/{endpoint}/with/key/QqsEN4DAuAPNDhPwNgVbG',
       {'value1': val1, 'value2': val2, 'value3': val3})
+  print('Notification sent!', endpoint, val1, val2, val3)
 #endregion
 
 

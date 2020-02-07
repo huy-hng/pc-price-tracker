@@ -19,14 +19,18 @@
           <tr class="table-{% if product['price'] < product['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">{{ product['name'] }}</th>
             <td>{{ product['price'] }}</td>
-            <td>{{ product['lowest'] }}</td>
+            <td class="table-{% if product['price'] == product['lowest'] %}success{% else %}default{% endif %}">
+              {{ product['lowest'] }}
+            </td>
             <td>{{ product['threshold'] }}</td>
           </tr>
           {% endfor %}
           <tr class="table-{% if prices_total['price'] < prices_total['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">Total</th>
             <td>{{ prices_total['price'] }}</td>
-            <td>{{ prices_total['lowest'] }}</td>
+            <td class="table-{% if prices_total['price'] == prices_total['lowest'] %}success{% else %}default{% endif %}">
+              {{ prices_total['lowest'] }}
+              </td>
             <td>{{ prices_total['threshold'] }}</td>
           </tr>
         </tbody>
@@ -55,7 +59,9 @@
           <tr class="table-{% if group['price'] < group['threshold'] %}success{% else %}default{% endif %}">
             <th scope="row">{{ group['name'] }}</th>
             <td>{{ group['price'] }}</td>
-            <td>{{ group['lowest'] }}</td>
+            <td class="table-{% if group['price'] == group['lowest'] %}success{% else %}default{% endif %}">
+              {{ group['lowest'] }}
+            </td>
             <td>{{ group['threshold'] }}</td>
           </tr>
           {% endfor %}
