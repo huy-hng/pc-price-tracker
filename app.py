@@ -135,8 +135,7 @@ def periodic_checker():
 
     get_all_prices()
     get_group_price()
-    print('assssd')
-    time.sleep(600)
+    time.sleep(3600)
 
   periodic_checker_running = False
 
