@@ -2,6 +2,7 @@ FROM python:3.7-alpine
 
 WORKDIR /app
 
+RUN apk add libxml2
 RUN pip install pipenv
 COPY ./Pipfile /app/Pipfile
 COPY ./Pipfile.lock /app/Pipfile.lock
