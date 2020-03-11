@@ -10,7 +10,6 @@ requests = "*"
 lxml = "*"
 gunicorn = "*"
 flask = "*"
-uwsgi = "*"
 
 [requires]
 python_version = "3.7"
