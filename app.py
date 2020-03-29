@@ -11,6 +11,7 @@ import headless_driver
 
 
 app = Flask(__name__)
+periodic_checker_running = False
 
 @app.route('/')
 def home():
@@ -36,9 +37,16 @@ def prices():
 
 def get_price(link):
   text = headless_driver.get(link)
-  elem = headless_driver.get_element(text, '//*[@id="priceCol"]/span/span[3]')
-  num = headless_driver.get_attribute(elem, 'content')
-  return round(float(num), 2)
+  try:
+    elem = headless_driver.get_element(text, '//*[@id="priceCol"]/span/span[3]')
+    num = headless_driver.get_attribute(elem, 'content')
+    return round(float(num), 2)
+  except Exception as e:
+    print(link)
+    print(e)
+
+  return -1
+    
 
 
 def get_all_prices():
@@ -64,10 +72,12 @@ def get_all_prices():
 
     price = get_price(link)
     # if name == 'CPU': price = round(product['lowest'] * 0.99, 2)
-    if price < product['lowest']:
-      product['lowest'] = price
-
-    product['price'] = price
+    if price == -1:
+      price = product['price']
+    else:
+      product['price'] = price
+      if price < product['lowest']:
+        product['lowest'] = price
 
     total_price += price
     total_threshold += product['threshold']
@@ -125,6 +135,7 @@ def start_periodic_checker():
   thread = Thread(target=periodic_checker)
   thread.daemon = True
   thread.start()
+
 
 def periodic_checker():
   global periodic_checker_running
@@ -197,9 +208,3 @@ def set_json(name, dictionary):
   with open(f'{name}.json', 'w') as f:
     f.write(json.dumps(dictionary))
 #endregion
-
-if __name__ == '__main__':
-  periodic_checker_running = False
-  if not periodic_checker_running:
-    start_periodic_checker()
-  app.run(debug=True, port=80)
